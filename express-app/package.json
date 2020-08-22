@@ -1,0 +1,34 @@
+{
+  "name": "spencer-express-app",
+  "version": "1.0.0",
+  "description": "Spencer first express app",
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.9.29"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Spencer0115/spencer_express_app.git"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "Spencer Hu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Spencer0115/spencer_express_app/issues"
+  },
+  "homepage": "https://github.com/Spencer0115/spencer_express_app#readme"
+}
