@@ -14,18 +14,20 @@ Post.addPost = async (req, res)=>{
 
 //geting all posts
 Post.getAllPostsByUserId = async (userId) => {
+    console.log(userId)
     const posts = await postService.aggregate([
         {
            $lookup:
               {
                 from: "users",
-                let: { author: "$author" },
+                let: { author: "$author", userId:userId},
                 pipeline: [
                    { $match:
                       { $expr:
                          { $and:
                             [
                               { $eq: [ "$_id",  "$$author" ] },
+                              { $eq: [ "$_id",  "$$userId" ] }
                             ]
                          }
                       }
@@ -39,7 +41,7 @@ Post.getAllPostsByUserId = async (userId) => {
                 $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$userInfo", 0 ] }, "$$ROOT" ] } }
             },
             { $project: { userInfo: 0 } }
-     ])
+     ]).sort({_id:-1})
     return posts
 }
 

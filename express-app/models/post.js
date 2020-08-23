@@ -4,6 +4,10 @@ const Schema = mongoose.Schema
 const PostSchema = new Schema({
     title:String,
     body:String,
+    isPublic:{
+        type:Number,
+        default:1 //1:public 0:private
+    },
     author:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User',

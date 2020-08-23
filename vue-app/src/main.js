@@ -15,13 +15,16 @@ import Home from '@/components/HomePage.vue'
 import Login from '@/components/Login.vue'
 import NewPost from '@/components/post/NewPost.vue'
 import SignUp from '@/components/SignUp.vue'
+import Me from '@/components/user/Me.vue'
 
 const routes = [
   { path: '/', component: Home},
   { path: '/home', component: Home},
   { path: '/login', name:"login", component: Login},
   { path: '/sign-up', name:"signUp", component: SignUp},
-  { path: '/newPost', name:"newPost", component: NewPost }
+  { path: '/newPost', name:"newPost", component: NewPost},
+  { path: '/me', name:"me", component: Me }
+
 ]
 
 const router = new VueRouter({

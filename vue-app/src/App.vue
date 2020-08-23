@@ -30,7 +30,6 @@ export default {
     darkThemeClass: function () {
         return {
           "dark-theme ": this.darkTheme,
-          "text-light": this.darkTheme
         }
       },
       darkThemeNavClass: function () {
