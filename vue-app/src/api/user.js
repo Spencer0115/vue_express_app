@@ -14,8 +14,14 @@ export default {
                             })
         return userRetrun
     },
-    getUser(){
-        return {userId:12}
+    async loginCheck(){
+        let userRetrun = {}
+        userRetrun = await axios
+                                .get("api/user/loginCheck")
+                                .then((response) => {
+                                    return response.data
+                                })
+        return userRetrun
     },
     async login(user){
         let userRetrun = {}
@@ -34,12 +40,5 @@ export default {
                                 return response.data
                             })
         return userRetrun
-    },
-    updateUser (user) {
-        axios
-        .post("api/updateUser", user)
-        .then((response)=> {
-            console.log(response);
-        })
     }
   }

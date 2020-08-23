@@ -2,6 +2,16 @@ const userService = require("../models/user")
 const User = module.exports = {}
 const bcrypt = require("bcrypt")
 
+User.loginCheck = async (req, res) => {
+    if(req.session.userId){
+        const existingUser = await userService.findById(req.session.userId, {username:1, email:1})
+        res.json(existingUser)
+    }else {
+        req.session.userId = null
+        res.json({})
+    }
+},
+
 User.addUser = async (req, res) => {
     const existingUser = await userService.find({$or:[{username:req.body.username},{email:req.body.email}]})
     if(existingUser.length > 0){
@@ -17,7 +27,7 @@ User.addUser = async (req, res) => {
     }
 }
 
-User.checkUniqueUser = (req, res) => {
+User.checkUniqueUser = async (req, res) => {
     if(userService.find({email:req.body.email}) != null){
         res.json({status:false, error:"Duplicated email"})
     } else if(userService.find({username:req.body.username}) != null){

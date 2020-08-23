@@ -1,7 +1,7 @@
 <template>
   <div class="container shadow-lg rounded p-2 mt-3 mb-3">
     <div class="input-group p-1 mb-2">
-        <input type="text" v-model="title" id="title" class="form-control border-0 text-center font-weight-bold" placeholder="Title">
+        <input type="text" v-model="title" id="title" required class="form-control border-0 text-center font-weight-bold" placeholder="Title">
     </div>
     <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
       <div class="menubar rounded">
@@ -42,14 +42,6 @@
           @click="commands.code"
         >
         <font-awesome-icon icon="code"/>
-        </button>
-
-        <button
-          class="btn-sm border-0 btn-outline-primary font-weight-bold m-1"
-          :class="{ 'btn-primary text-white': isActive.link() }"
-          @click="commands.link"
-        >
-        <font-awesome-icon icon="bold"/>
         </button>
 
         <button
@@ -164,6 +156,7 @@ import {
   Underline,
   History,
 } from 'tiptap-extensions'
+
 export default {
   components: {
     EditorContent,
@@ -171,7 +164,7 @@ export default {
     },
   data() {
     return {
-        title:"",
+      title:"",
       editor: new Editor({
         extensions: [
             new Blockquote(),
@@ -190,8 +183,7 @@ export default {
             new Italic(),
             new Strike(),
             new Underline(),
-            new History(),
-            new Link()
+            new History()
         ],
         content:"",
         onUpdate: ({ getJSON, getHTML }) => {
@@ -214,8 +206,7 @@ export default {
         }
     },
     submit(){
-        console.log(this.html)
-        console.log(this.json)
+       this.$emit("publishPost",{title:this.title, body:this.html})
     }
     },
     created(){

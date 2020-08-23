@@ -3,7 +3,7 @@ import postApi from '../../api/post'
 // initial state
 // shape: [{ title, body }]
 const state = () => ({
-  posts: []
+  posts: [],
 })
 
 // getters

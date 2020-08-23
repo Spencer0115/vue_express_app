@@ -1,8 +1,11 @@
 <template>
-  <div id="app" :class="darkAppClass">
+  <div id="app" :class="darkAppClass" >
     <NavBar :class="darkThemeNavClass"/>
-    <router-view :class="darkThemeClass"></router-view>
-    <Footer :class="darkAppClass"/>
+    <Notification :class="darkAppClass"/>
+    <div style="overflow:scroll" :style="{'max-height':windowHeight+'px'}">
+      <router-view :class="darkAppClass" ></router-view>
+      <Footer :class="darkAppClass"/>
+    </div>
   </div>
 </template>
 
@@ -10,18 +13,23 @@
 import {mapGetters} from "vuex"
 import Footer from './components/Footer.vue'
 import NavBar from './components/NavBar'
+import Notification from './components/Notification'
 
 export default {
   name: 'App',
   components: {
     NavBar,
-    Footer
+    Footer,
+    Notification
   },
   computed:{
     ...mapGetters({darkTheme:"darkTheme"}),
+    windowHeight:function(){
+      return window.innerHeight - 60
+    },
     darkThemeClass: function () {
         return {
-          "bg-dark": this.darkTheme,
+          "dark-theme ": this.darkTheme,
           "text-light": this.darkTheme
         }
       },
@@ -33,14 +41,17 @@ export default {
       },
       darkAppClass: function () {
         return {
-          "bg-dark ": this.darkTheme
+            "bg-dark": this.darkTheme,
+            "text-light":this.darkTheme,
+            "dark-theme":this.darkTheme
           }
       }
   },
   methods: {
-      },
+    },
   created() {
-    }
+    this.$store.dispatch("user/loginCheck")
+  }
 }
 </script>
 
@@ -49,7 +60,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: #2c3e50
 }
 ul {
   list-style-type: none;
@@ -58,5 +69,15 @@ ul {
 li {
   display: inline-block;
 }
-
+.dark-theme input{
+  background-color: #2c3e50;
+}
+.dark-theme input:focus{
+  background: #2c3e50;
+  color:white
+}
+.dark-theme input:active {
+  background: #2c3e50;
+  color:white
+}
 </style>

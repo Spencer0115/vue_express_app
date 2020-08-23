@@ -86,9 +86,7 @@
           </div>                
         </div>        
         <hr class="mb-4">
-        <div v-if="signUpStatus === 'SUCCESS'" class="alert alert-success font-weight-bold text-center">Sign up success.</div>
-        <div v-if="signUpStatus === 'ERROR'" class="alert alert-danger font-weight-bold text-center">Sign up failed.</div>
-        <button v-if="isSubmitting" class="btn btn-primary btn-block">
+         <button v-if="isSubmitting" class="btn btn-primary btn-block">
           <font-awesome-icon icon="spinner" spin /> Please wait...
         </button>
         <button v-if="!isSubmitting" class="btn btn-primary btn-block" type="submit">
@@ -143,8 +141,7 @@ export default {
     }
   },
   computed:{
-      ...mapGetters("user", {user:"user"}),
-      ...mapGetters("user", {signUpStatus:"signUpStatus"})
+      ...mapGetters("user", {user:"user"})
   },
   methods:{
     submit(){

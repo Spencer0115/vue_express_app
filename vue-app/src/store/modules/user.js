@@ -3,7 +3,7 @@ import userApi from '../../api/user'
 // initial state
 // shape: [{ title, body }]
 const state = () => ({
-  user: {},
+  user: {_id:null},
   signUpStatus:""
 })
 
@@ -19,6 +19,11 @@ const getters = {
 
 // actions
 const actions = {
+  loginCheck({commit}){
+    userApi.loginCheck().then(newUser =>{
+      commit("updateUser", newUser)
+    })
+  },
   login({commit}, {user,vm}){
     userApi.login(user).then(newUser =>{
       commit("updateUser", newUser)
@@ -34,14 +39,13 @@ const actions = {
   addUser({commit},{user,vm}){
       userApi.addUser(user).then(user =>{
         commit("updateUser", user)
-        commit("setSignUpStatus", "SUCCESS")
+        vm.$store.dispatch("addNewNotification", {title:"Success", body:"Sign up success.", class:"success"})
         setTimeout(() => {
-          commit("setSignUpStatus", "")
           vm.$router.push("/login")
         }, 3000);
       }).catch(()=>{
-        commit("updateUser", null)
-        commit("setSignUpStatus", "ERROR")
+        commit("updateUser", {})
+        vm.$store.dispatch("addNewNotification", {title:"Error", body:"Sign up failed.", class:"danger"})
       })
   },
   getUserById(commit){

@@ -1,5 +1,5 @@
 <template>
-    <Editor/>
+    <Editor @publishPost="addPost" />
 </template>
 
 <script>
@@ -19,9 +19,15 @@ export default {
         ...mapGetters("user", {user:"user"})
     },
     methods:{
-        addPost() {
-            this.post.userId = this.user.userId
-            this.$store.dispatch("post/addPost", this.post)
+        addPost(post) {
+            post.userId = this.user._id
+            if(!this.user._id){
+                this.$router.push("/login")
+            }else {
+                let msg = {title:"Success", body:"You added a new post.", class:"success"}
+                this.$store.dispatch("post/addPost", post)
+                this.$store.dispatch("addNewNotification",msg)
+            }
         },
     }
 }

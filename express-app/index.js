@@ -27,6 +27,7 @@ app.use(expressSession({
     secret:"unclerogerlovesrice"
 }))
 
+app.get("/user/loginCheck", userController.loginCheck)
 app.post("/user/addUser", userController.addUser)
 app.post("/user/login", userController.getUserWithPassword)
 app.post("/user/logout", userController.logout)

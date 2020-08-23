@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
+import userApi from './api/user'
+import VueMoment from 'vue-moment'
+Vue.use(VueMoment);
 
 import Vuelidate from 'vuelidate'//form validation 
 Vue.use(Vuelidate)
@@ -25,20 +28,20 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, from, next)=>{
-  console.log(store.state.user.user)
-  let userActive = store.state.user.user._id
-  if(!userActive){
-    if(to.name === "newPost" || to.name === "me"){
-      next("login")
-    } else {
+router.beforeResolve(async (to, from, next)=>{
+  userApi.loginCheck().then(function (user){
+    if(!user._id){
+      if(to.name === "newPost" || to.name === "me"){
+        next({name:"login"})
+      } else {
+        next()
+      }
+    }else if(to.name === "login" || to.name==="signUp"){
+      next(false)
+    }else {
       next()
     }
-  }else if(to.name === "login" || to.name==="signUp"){
-    next(false)
-  }else {
-    next()
-  }
+  })
 })
 
 import 'bootstrap'; 

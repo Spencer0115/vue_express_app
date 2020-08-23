@@ -5,7 +5,7 @@
     </span>
     <ul class="navbar-nav navbar-nav-lg bd-navbar-nav flex-row">
         <li class="nav-item"><router-link class="nav-link" to="/home">Home</router-link></li>
-        <div v-if="user._id">
+        <div v-if="user && user._id !== undefined">
             <li class="nav-item nav-selected"><router-link class="nav-link" to="/me">Me</router-link></li>
         </div>
      </ul> 
@@ -18,7 +18,7 @@
             <font-awesome-icon icon="moon" size="lg" />
             </a>
         </li>
-        <div v-if="!user._id">
+        <div v-if="user && user._id === undefined">
             <li class="nav-item font-weight-bold"><router-link class="nav-link" to="/login">Login</router-link></li>
             <li class="nav-item font-weight-bold"><router-link class="nav-link" to="/sign-up">Sign Up</router-link></li>
         </div>
